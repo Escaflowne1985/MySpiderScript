@@ -101,3 +101,23 @@ class MyspiderDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+
+# 添加Header和IP类
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+from scrapy.utils.project import get_project_settings
+import random
+
+settings = get_project_settings()
+
+
+class RotateUserAgentMiddleware(UserAgentMiddleware):
+    def process_request(self, request, spider):
+        # referer = request.url
+        # if referer:
+        #     request.headers["referer"] = referer
+        USER_AGENT_LIST = settings.get('USER_AGENT_LIST')
+        user_agent = random.choice(USER_AGENT_LIST)
+        if user_agent:
+            request.headers.setdefault('user-Agent', user_agent)
+            # print(f"user-Agent:{user_agent}")

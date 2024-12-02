@@ -7,8 +7,8 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
-
 import pymongo
+
 
 class MongoDBPipeline:
     def __init__(self, mongo_uri, mongo_db):
